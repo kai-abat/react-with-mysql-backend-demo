@@ -24,6 +24,7 @@ const ContactForm = ({
             <Form.Group className="mb-3" controlId="register.firstName">
               {/* <Form.Label>Name</Form.Label> */}
               <Form.Control
+                data-test="test-name"
                 type="text"
                 placeholder="Name"
                 value={testForm.name}
@@ -38,6 +39,7 @@ const ContactForm = ({
 
             <Form.Group className="mb-3" controlId="register.address">
               <Form.Control
+                data-test="test-address"
                 type="text"
                 placeholder="Address"
                 value={testForm.address}
@@ -53,6 +55,7 @@ const ContactForm = ({
             <Form.Group className="mb-3" controlId="register.age">
               <Form.Control
                 type="text"
+                data-test="test-age"
                 placeholder="Age"
                 value={testForm.age}
                 onChange={(e) =>
@@ -65,7 +68,7 @@ const ContactForm = ({
             </Form.Group>
 
             <Stack gap={3} direction="horizontal">
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" data-test="submit-button">
                 Submit
               </Button>
               <Button
@@ -73,6 +76,7 @@ const ContactForm = ({
                 variant="primary"
                 type="button"
                 onClick={handleClearForm}
+                data-test="cancel-button"
               >
                 Cancel
               </Button>

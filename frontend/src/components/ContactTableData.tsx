@@ -20,12 +20,20 @@ const ContactTableData = (props: ContactDataTypes) => {
       <td className="text-center text-capitalize p-3">{address}</td>
       <td className="text-center p-3">{age}</td>
       <td className="text-center p-3">
-        <Button onClick={() => handleUpdateData({ id, name, address, age })}>
+        <Button
+          data-test={`${name}-edit-button`}
+          onClick={() => handleUpdateData({ id, name, address, age })}
+        >
           Edit
         </Button>
       </td>
       <td className="text-center p-3">
-        <Button onClick={() => handleDeleteData(id)}>Delete</Button>
+        <Button
+          data-test={`${name}-delete-button`}
+          onClick={() => handleDeleteData(id)}
+        >
+          Delete
+        </Button>
       </td>
     </tr>
   );

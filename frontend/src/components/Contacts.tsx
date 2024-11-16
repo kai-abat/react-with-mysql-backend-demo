@@ -42,7 +42,11 @@ const Contacts = () => {
     <Stack gap={3}>
       <Stack gap={4} direction="horizontal">
         <h1>Contacts</h1>
-        <Button className="contact-add-button" onClick={handleAddContact}>
+        <Button
+          data-test="create-contact-button"
+          className="contact-add-button"
+          onClick={handleAddContact}
+        >
           Create Contact
         </Button>
       </Stack>
