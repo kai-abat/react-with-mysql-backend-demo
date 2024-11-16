@@ -1,115 +1,97 @@
 const { POOL } = require("./db");
 
-const getAllForm = async (id) => {
-  console.log("getForm...", id);
+const getAllContact = async () => {
   const conn = await POOL.getConnection();
   const sql = "SELECT id, name, address, age FROM form";
-  const [data] = await conn.query(sql, [id]);
+  const [data] = await conn.query(sql);
   POOL.releaseConnection(conn);
-
-  console.log("getForm data");
 
   return data;
 };
 
-const getForm = async (id) => {
-  console.log("getForm...", id);
+const getContact = async (id) => {
   const conn = await POOL.getConnection();
   const sql = "SELECT id, name, address, age FROM form WHERE id = ?";
   const [data] = await conn.query(sql, [id]);
   POOL.releaseConnection(conn);
 
-  console.log("getForm data.at(0)", data[0]);
-
   if (!data[0]) {
     throw new Error("Record not found");
   }
-  console.log("getForm data.at(0)22", data[0]);
   return data[0];
 };
 
-const getFormByName = async (name) => {
-  console.log("getForm...", name);
+const getContactByName = async (name) => {
   const conn = await POOL.getConnection();
   const sql = "SELECT id, name, address, age FROM form WHERE name = ?";
   const [data] = await conn.query(sql, [name]);
   POOL.releaseConnection(conn);
 
-  console.log("getForm data.at(0)", data[0]);
-
   if (!data[0]) {
     throw new Error("Record not found");
   }
-  console.log("getForm data.at(0)22", data[0]);
 
   return data[0];
 };
 
-const saveForm = async (id, name, address, age) => {
+const saveContact = async (name, address, age) => {
   const conn = await POOL.getConnection();
 
-  if (!id) {
-    console.log("saveForm insert...");
-    const sql = "INSERT INTO form (name,address,age) VALUE (?,?,?)";
-    const [result] = await conn.query(sql, [name, address, age]);
-    console.log("saveForm", result.insertId);
-  } else {
-    console.log("saveForm update...");
-    const sql = "UPDATE form SET name = ?, address = ?, age = ? WHERE id = ?";
-    const result = await conn.query(sql, [name, address, age, id]);
-
-    console.log("updateForm", result);
-  }
+  const sql = "INSERT INTO form (name,address,age) VALUE (?,?,?)";
+  const [result] = await conn.query(sql, [name, address, age]);
 
   POOL.releaseConnection(conn);
 
-  let form;
-  if (id) {
-    form = await getForm(id);
-  } else {
-    form = await getForm(result.insertId);
-  }
-  console.log("saveForm form", form);
+  const form = await getContact(result.insertId);
   return form;
 };
 
-const deleteForm = async (id) => {
-  console.log("deleteForm...");
-  if (id) {
-    const conn = await POOL.getConnection();
-    const sql = "DELETE FROM form WHERE id = ?";
-    const result = await conn.query(sql, [id]);
-    POOL.releaseConnection(conn);
-    console.log("deleteForm result", result);
-  }
+const updateContact = async (id, name, address, age) => {
+  const conn = await POOL.getConnection();
 
-  return "success delete " + id;
+  const sql = "UPDATE form SET name = ?, address = ?, age = ? WHERE id = ?";
+  const result = await conn.query(sql, [name, address, age, id]);
+
+  POOL.releaseConnection(conn);
+
+  const form = await getContact(id);
+
+  return form;
 };
 
-const deleteFormUsingName = async (name) => {
-  console.log("deleteForm...");
-  if (name) {
-    const foundRecord = await getFormByName(name);
+const deleteContact = async (id) => {
+  const conn = await POOL.getConnection();
+  const sql = "DELETE FROM form WHERE id = ?";
+  const result = await conn.query(sql, [id]);
+  POOL.releaseConnection(conn);
 
-    if (!foundRecord.id) return foundRecord;
+  return "Successfully delete " + id;
+};
 
-    if (foundRecord.id) {
+const deleteContactFromUsingName = async (name) => {
+  try {
+    if (name) {
+      const foundRecord = await getContactByName(name);
+
       const conn = await POOL.getConnection();
       const sql = "DELETE FROM form WHERE id = ?";
       const result = await conn.query(sql, [foundRecord.id]);
       POOL.releaseConnection(conn);
-      console.log("deleteForm result", result);
-    }
-  }
 
-  return "success delete " + id;
+      return "Successfully delete " + name;
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+  return "No record found!";
 };
 
 module.exports = {
-  saveForm,
-  getForm,
-  getAllForm,
-  deleteForm,
-  getFormByName,
-  deleteFormUsingName,
+  saveContact,
+  updateContact,
+  getContact,
+  getAllContact,
+  deleteContact,
+  getContactByName,
+  deleteContactFromUsingName,
 };
