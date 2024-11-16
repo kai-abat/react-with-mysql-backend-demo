@@ -1,19 +1,21 @@
 import { Form, Row, Col, Stack, Button } from "react-bootstrap";
 import { TestFormType } from "../hooks/useTestForm";
 
-const TestForm = ({
+const ContactForm = ({
   testForm,
   handleForm,
   handleSubmit,
-  isDelete,
-  setIsDelete,
+  handleClearForm,
 }: {
   testForm: TestFormType;
   handleForm: (form: TestFormType) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  isDelete: boolean;
-  setIsDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClearForm: () => void;
 }) => {
+  const isClearDisabled =
+    testForm.name.length === 0 &&
+    testForm.address.length === 0 &&
+    testForm.age.length === 0;
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -62,24 +64,18 @@ const TestForm = ({
               />
             </Form.Group>
 
-            <Stack
-              gap={3}
-              direction="horizontal"
-              className=" justify-content-between"
-            >
+            <Stack gap={3} direction="horizontal">
               <Button variant="primary" type="submit">
                 Submit
               </Button>
-              {testForm.name && (
-                <Form.Group className="mb-3" controlId="register.deleteCheck">
-                  <Form.Check
-                    type="checkbox"
-                    label={`Delete Record ${testForm.name}?`}
-                    checked={isDelete}
-                    onChange={(e) => setIsDelete(e.target.checked)}
-                  />
-                </Form.Group>
-              )}
+              <Button
+                disabled={isClearDisabled}
+                variant="primary"
+                type="button"
+                onClick={handleClearForm}
+              >
+                Cancel
+              </Button>
             </Stack>
           </Col>
         </Row>
@@ -87,4 +83,4 @@ const TestForm = ({
     </>
   );
 };
-export default TestForm;
+export default ContactForm;

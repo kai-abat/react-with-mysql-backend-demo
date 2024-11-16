@@ -27,6 +27,10 @@ export const useTestForm = () => {
     return data;
   };
 
+  const handleClearForm = () => {
+    setTestForm(DEFAULT_VALUE);
+  };
+
   const handleUpdateData = async (data: TestFormType) => {
     console.log("handleUpdateData", data);
     setTestForm(data);
@@ -35,7 +39,7 @@ export const useTestForm = () => {
   const handleDeleteData = async (id: string | undefined) => {
     if (!id) return;
     // const delBody = { id: id };
-    const response = await fetch("http://localhost:5020/form/delete", {
+    const response = await fetch("http://localhost:5020/form", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
@@ -43,7 +47,6 @@ export const useTestForm = () => {
     await response.json();
 
     // delete data from contact list
-
     const newContact = contacts.filter((c) => {
       if (c.id !== id) return c;
     });
@@ -67,28 +70,33 @@ export const useTestForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // handle delete
-
-    // if (testForm.id && !testForm.name) {
-    //   console.log("fetch data...");
-    //   await handleGetData(testForm.id);
-
-    //   return;
-    // }
-
     const body = {
       id: testForm?.id,
       name: testForm.name,
       address: testForm.address,
       age: testForm.age,
     };
-    // fetch post here
-    const response = await fetch("http://localhost:5020/form/save", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
+
+    let data;
+
+    // save new contact
+    if (!testForm.id) {
+      const response = await fetch("http://localhost:5020/form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      data = await response.json();
+
+      // update existing contact
+    } else {
+      const response = await fetch("http://localhost:5020/form", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      data = await response.json();
+    }
 
     if (testForm.id) {
       setContacts((d) => {
@@ -105,8 +113,6 @@ export const useTestForm = () => {
       });
     }
 
-    console.log("output:", data);
-
     setTestForm(DEFAULT_VALUE);
   };
 
@@ -121,6 +127,7 @@ export const useTestForm = () => {
     handleSubmit,
     handleGetData,
     getAllContacts,
+    handleClearForm,
     isDelete,
     setIsDelete,
     handleDeleteData,
