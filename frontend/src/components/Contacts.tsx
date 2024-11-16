@@ -3,7 +3,7 @@ import { TestFormType, useTestForm } from "../hooks/useTestForm";
 import ContactForm from "./ContactForm";
 import ContactTable from "./ContactTable";
 import ContactTableData from "./ContactTableData";
-import { Stack } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 
 const Contacts = () => {
   const {
@@ -15,6 +15,8 @@ const Contacts = () => {
     contacts,
     setContacts,
     handleUpdateData,
+    showForm,
+    handleAddContact,
   } = useTestForm();
   // const [contacts, setContacts] = useState<TestFormType[]>([]);
 
@@ -38,7 +40,12 @@ const Contacts = () => {
 
   return (
     <Stack gap={3}>
-      <h1>Contacts</h1>
+      <Stack gap={4} direction="horizontal">
+        <h1>Contacts</h1>
+        <Button className="contact-add-button" onClick={handleAddContact}>
+          Create Contact
+        </Button>
+      </Stack>
       <ContactTable>
         {contacts.map((c, idx) => {
           return (
@@ -55,7 +62,7 @@ const Contacts = () => {
         })}
       </ContactTable>
 
-      {testForm.id && (
+      {showForm && (
         <ContactForm
           testForm={testForm}
           handleForm={handleForm}

@@ -115,3 +115,7 @@ button:focus-visible {
 .table-controls {
   min-width: 15rem;
 }
+
+.contact-add-button {
+  font-size: x-large;
+}
