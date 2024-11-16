@@ -19,6 +19,7 @@ export const useTestForm = () => {
   const [isDelete, setIsDelete] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [contacts, setContacts] = useState<TestFormType[]>([]);
+  const [showForm, setShowForm] = useState(false);
   // const [error, setError] = useState("");
 
   const getAllContacts = async () => {
@@ -29,11 +30,22 @@ export const useTestForm = () => {
 
   const handleClearForm = () => {
     setTestForm(DEFAULT_VALUE);
+    setShowForm(false);
+  };
+
+  const handleAddContact = () => {
+    if (showForm) {
+      setShowForm(false);
+      setTestForm(DEFAULT_VALUE);
+      return;
+    }
+    setShowForm(true);
   };
 
   const handleUpdateData = async (data: TestFormType) => {
     console.log("handleUpdateData", data);
     setTestForm(data);
+    setShowForm(true);
   };
 
   const handleDeleteData = async (id: string | undefined) => {
@@ -114,6 +126,7 @@ export const useTestForm = () => {
     }
 
     setTestForm(DEFAULT_VALUE);
+    setShowForm(false);
   };
 
   // controlled component
@@ -125,6 +138,7 @@ export const useTestForm = () => {
     testForm,
     handleForm,
     handleSubmit,
+    handleAddContact,
     handleGetData,
     getAllContacts,
     handleClearForm,
@@ -136,5 +150,6 @@ export const useTestForm = () => {
     contacts,
     setContacts,
     handleUpdateData,
+    showForm,
   };
 };
