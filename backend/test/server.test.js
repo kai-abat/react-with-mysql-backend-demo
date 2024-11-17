@@ -83,6 +83,12 @@ describe("POST and save contact to /form", () => {
     expect(contact.name).toBe(name);
     expect(contact.address).toBe(address);
     expect(contact.age).toBe(age);
+
+    const response2 = await request(app).delete("/form").send({
+      id: contact.id,
+    });
+
+    expect(response2.status).toBe(200);
   });
 });
 
@@ -136,8 +142,8 @@ describe("Create a contact then delete the created contact", () => {
       id,
     });
 
-    expect(response.status).toBe(200);
-    expect(response.headers["content-type"]).toEqual(
+    expect(response2.status).toBe(200);
+    expect(response2.headers["content-type"]).toEqual(
       expect.stringContaining("json")
     );
   });
