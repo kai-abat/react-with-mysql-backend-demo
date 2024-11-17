@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1731738214293" clover="3.2.0">
-  <project timestamp="1731738214293" name="All files">
+<coverage generated="1731853216165" clover="3.2.0">
+  <project timestamp="1731853216165" name="All files">
     <metrics statements="104" coveredstatements="98" conditionals="8" coveredconditionals="8" methods="13" coveredmethods="13" elements="125" coveredelements="119" complexity="0" loc="104" ncloc="104" packages="2" files="3" classes="3"/>
     <package name="backend">
       <metrics statements="45" coveredstatements="39" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
-      <file name="app.js" path="D:\Programming\React\application-sample-projects\demo-seansoft-1\backend\app.js">
+      <file name="app.js" path="D:\Programming\React\application-sample-projects\react-with-mysql-backend-demo\backend\app.js">
         <metrics statements="45" coveredstatements="39" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -55,14 +55,14 @@
     </package>
     <package name="backend.model">
       <metrics statements="59" coveredstatements="59" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
-      <file name="db.js" path="D:\Programming\React\application-sample-projects\demo-seansoft-1\backend\model\db.js">
+      <file name="db.js" path="D:\Programming\React\application-sample-projects\react-with-mysql-backend-demo\backend\model\db.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
       </file>
-      <file name="formModel.js" path="D:\Programming\React\application-sample-projects\demo-seansoft-1\backend\model\formModel.js">
+      <file name="formModel.js" path="D:\Programming\React\application-sample-projects\react-with-mysql-backend-demo\backend\model\formModel.js">
         <metrics statements="55" coveredstatements="55" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
