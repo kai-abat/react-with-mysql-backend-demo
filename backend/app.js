@@ -17,6 +17,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+let count = 0;
+app.get("/", (req, res) => {
+  count++;
+  res.send(`Hi sup? You're the No. ${count} visitor here.`);
+});
+
 app.post("/form", async (req, res) => {
   const { name, address, age } = req.body;
 

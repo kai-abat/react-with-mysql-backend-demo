@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon backend/index.js",
+    "debug": "nodemon --inspect backend/index.js",
     "test": "jest"
   },
   "author": "",
