@@ -9,6 +9,7 @@ const {
   updateContact,
 } = require("./model/formModel");
 const { POOL } = require("./model/db");
+const { getHomepageData, calculateSomething } = require("./utils/helper");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5020;
@@ -20,6 +21,13 @@ app.use(cors());
 let count = 0;
 app.get("/", (req, res) => {
   count++;
+
+  const data = getHomepageData();
+
+  const calcRusult = calculateSomething();
+
+  console.log(data);
+  console.log(calcRusult);
   res.send(`Hi sup? You're the No. ${count} visitor here.`);
 });
 

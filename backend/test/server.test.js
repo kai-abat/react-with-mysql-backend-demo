@@ -29,7 +29,7 @@ describe("Get all contact", () => {
 
 describe("Get specific contact", () => {
   it("will get the contact of joey from /form/:id and should be json content type header", async () => {
-    const response = await request(app).get("/form/21");
+    const response = await request(app).get("/form/18");
     expect(response.status).toBe(200);
     expect(response.headers["content-type"]).toEqual(
       expect.stringContaining("json")
@@ -37,15 +37,15 @@ describe("Get specific contact", () => {
   });
 
   it("will get the contact of joey from /form/:id", async () => {
-    const response = await request(app).get("/form/21");
+    const response = await request(app).get("/form/18");
     expect(response.status).toBe(200);
 
     const contact = response.body;
 
-    expect(contact.id).toBe(21);
-    expect(contact.name).toBe("Joey");
-    expect(contact.address).toBe("Pedro");
-    expect(contact.age).toBe("15");
+    expect(contact.id).toBe(18);
+    expect(contact.name).toBe("johnee");
+    expect(contact.address).toBe("address50");
+    expect(contact.age).toBe("56");
   });
 
   it("will get contact using name", async () => {
@@ -90,7 +90,7 @@ describe("UPDATE a contact to /form", () => {
   it("should update a contact", async () => {
     // AAA principle:
     // arrange
-    const id = 25;
+    const id = 130;
     const name = "Jest";
     const address = "Test";
     const age = "200";
